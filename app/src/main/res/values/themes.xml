@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.StudentApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--primary color.-->
+        <item name="colorPrimary">@color/my_primary</item>
+        <item name="colorPrimaryVariant">@color/my_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!--secondary color.-->
+        <item name="colorSecondary">@color/my_Secondary</item>
+        <item name="colorSecondaryVariant">@color/my_Secondary</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!--3rd color-->
+        <item name="colorTertiary">#282836</item>
+        <item name="colorTertiaryVarint">#282836</item>
+        <item name="colorOnTertiary">@color/white</item>
+
+
+        <!--Status color.-->
+        <item name="android:statusBarColor">@color/my_primary</item>
+
+    </style>
+
+    <style name="Theme.StudentApplication" parent="Base.Theme.StudentApplication" />
+</resources>
