@@ -30,6 +30,9 @@ public class addToCart extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private TextView cartFoodTextView;
     private TextView cartFoodPriceTextView;
+    private TextView cart_food_quantity;
+    private int cartQuantity = 1;
+    private double itemPrice = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +52,17 @@ public class addToCart extends AppCompatActivity {
     private void setViews(){
         cartFoodTextView = findViewById(R.id.cart_food_name);
         cartFoodPriceTextView = findViewById(R.id.cart_food_price);
+        cart_food_quantity = findViewById(R.id.cart_food_quantity);
+        updateQuantityUI();
     }
 
     private void loadCartItemData() {
         String itemName = preferences.getString("item_name", "");
-        String itemPrice = preferences.getString("item_price", "");
+        String itemPriceStr = preferences.getString("item_price", "0.0");
 
         cartFoodTextView.setText(itemName);
-        cartFoodPriceTextView.setText(itemPrice);
+        cartFoodPriceTextView.setText(itemPriceStr);
+        itemPrice = Double.parseDouble(itemPriceStr);
     }
 
     private void createOrder() {
@@ -65,8 +71,7 @@ public class addToCart extends AppCompatActivity {
 
         String studentId = preferences.getString("USERNAME","");
         String productId = preferences.getString("item_id","");
-        Log.d("pref",studentId);
-        Log.d("pref",productId);
+
         JSONObject orderData = new JSONObject();
         try {
             orderData.put("student_id", studentId);
@@ -93,6 +98,13 @@ public class addToCart extends AppCompatActivity {
         queue.add(request);
     }
 
+    private void updateQuantityUI() {
+        cart_food_quantity.setText(String.valueOf(cartQuantity));
+
+        double totalPrice = cartQuantity * itemPrice;
+        cartFoodPriceTextView.setText(String.valueOf(totalPrice));
+    }
+
     public void btnPlaceOrderOnClick(View view){
         createOrder();
     }
@@ -101,4 +113,20 @@ public class addToCart extends AppCompatActivity {
         Intent intent3 = new Intent(addToCart.this,MainActivity.class);
         startActivity(intent3);
     }
+
+    public void btnIncreaseOnClick(View view) {
+        cartQuantity++;
+        updateQuantityUI();
+    }
+
+    public void btnDecreaseOnClick(View view) {
+        if (cartQuantity > 1) {
+            cartQuantity--;
+            updateQuantityUI();
+        } else {
+            Toast.makeText(this, "Quantity cannot be less than 1", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }
