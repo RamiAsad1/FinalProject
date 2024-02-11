@@ -1,11 +1,13 @@
 package com.example.project.Domain;
 
 public class CategoryDomain {
+    String id;
     String title;
     String pic;
     String price;
 
-    public CategoryDomain(String title, String pic, String price) {
+    public CategoryDomain(String id, String title, String pic, String price) {
+        this.id = id;
         this.title = title;
         this.pic = pic;
         this.price = price;
@@ -33,6 +35,14 @@ public class CategoryDomain {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

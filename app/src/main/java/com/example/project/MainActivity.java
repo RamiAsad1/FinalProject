@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CategoryAdapter(new ArrayList<>(), new CategoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CategoryDomain category) {
-                addToCart(category.getTitle(), category.getPrice(), category.getPic());
+                addToCart(category.getId(), category.getTitle(), category.getPrice());
             }
         });
         recyclerViewCategory.setAdapter(adapter);
@@ -74,12 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addToCart(String itemName, String itemImage, String itemPrice) {
-        if (itemName != null && itemImage != null && itemPrice != null) {
+    private void addToCart(String itemId, String itemName, String itemPrice) {
+        if (itemId != null && itemName != null && itemPrice != null) {
+            editor.putString("item_id", itemId);
             editor.putString("item_name", itemName);
-            editor.putString("item_image", itemImage);
             editor.putString("item_price", itemPrice);
             editor.apply();
+
             showToast("Item added to cart successfully");
         } else {
             showToast("Failed to add item to cart. Please try again.");
@@ -102,10 +103,11 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 JSONArray item = response.getJSONArray(i);
+                                String id = item.getString(0);
                                 String name = item.getString(1);
                                 String picture = item.getString(3);
                                 String price = item.getString(4);
-                                categoryList.add(new CategoryDomain(name, picture, price));
+                                categoryList.add(new CategoryDomain(id, name, picture, price));
                             }
                             adapter.updateData(categoryList);
 

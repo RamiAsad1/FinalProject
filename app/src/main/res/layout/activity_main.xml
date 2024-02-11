@@ -66,6 +66,7 @@
                         android:layout_height="92dp"
                         android:layout_marginTop="10dp"
                         android:text="what you want to eat today?!"
+                        android:textAlignment="center"
                         android:textColor="#ffffff"
                         android:textSize="30sp"
                         android:textStyle="bold"
